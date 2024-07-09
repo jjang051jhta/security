@@ -22,6 +22,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         if(signinDto!=null) {
             return new CustomUserDetails(signinDto);
         }
-        return null;
+        throw new UsernameNotFoundException("일치하는 멤버가 없습니다.");
+        //return null;
     }
 }
