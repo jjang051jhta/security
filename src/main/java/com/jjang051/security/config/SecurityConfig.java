@@ -35,14 +35,16 @@ public class SecurityConfig {
                     .requestMatchers("/",
                             "/member/login","/member/signin")
                     .permitAll()
+                    .requestMatchers("/admin/**").hasRole("ADMIN")
+                    .requestMatchers("/mypage/**").hasAnyRole("ADMIN","USER","MANAGER")
                     .anyRequest()
                     .authenticated()
         );
         httpSecurity.formLogin((auth)->auth
                 .loginPage("/member/login")  //get
                 .loginProcessingUrl("/member/login")  //post
-                .usernameParameter("userEmail")    //name=userId
-                .passwordParameter("userPw")  //name=password
+                .usernameParameter("userId")    //name=userId
+                .passwordParameter("password")  //name=password
                 .defaultSuccessUrl("/",true) //true를 쓰지 않으면 이전 페이지로 간다.
         );
 
